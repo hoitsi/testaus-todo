@@ -1,0 +1,62 @@
+# Tälle työnkululle annetaan nimi, joka näkyy GitHubin Actions-välilehdellä.
+name: CI Testaus-Todo
+
+# Määritellään, milloin tämä työnkulku käynnistyy.
+on:
+  # Käynnistyy, kun koodia pushataan 'test-branch'-haaraan.
+  # Merge on käytännössä push, joten tämä kattaa tehtävänannon.
+  push:
+    branches:
+      - test-branch
+
+# Määritellään työt (jobs), jotka robotti suorittaa.
+jobs:
+  # Ensimmäinen työ: yksikkötestien ajaminen.
+  unit-tests:
+    # Käytetään uusinta Ubuntua virtuaalikoneena.
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Haetaan koodi repositoriosta virtuaalikoneelle.
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Asennetaan Node.js (versio 20).
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 3. Asennetaan riippuvuudet. 'npm ci' on nopeampi ja luotettavampi CI-ympäristössä kuin 'npm install'.
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Ajetaan yksikkötestit.
+      - name: Run unit tests
+        run: npm test
+
+  # Toinen työ: end-to-end-testien ajaminen. Tämä voi pyöriä samanaikaisesti yksikkötestien kanssa.
+  e2e-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 5. Ajetaan Cypress-testit.
+      # Käytetään virallista Cypress GitHub Actionia, joka hoitaa kaiken automaattisesti:
+      # - Käynnistää palvelimen (npm start)
+      # - Odottaa, että palvelin on valmis
+      # - Ajaa testit (npx cypress run)
+      # - Sammuttaa palvelimen
+      - name: Run E2E tests
+        uses: cypress-io/github-action@v6
+        with:
+          # Kerrotaan, että palvelin pitää käynnistää.
+          start: npm start
