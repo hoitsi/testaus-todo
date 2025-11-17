@@ -20,6 +20,21 @@
     "@eslint/js": "^9.39.1",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
-    "vitest": "^4.0.8"
-  }
+    "vitest": "^4.0.10"
+  },
+  "main": "eslint.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoitsi/testaus-todo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoitsi/testaus-todo/issues"
+  },
+  "homepage": "https://github.com/hoitsi/testaus-todo#readme"
 }
