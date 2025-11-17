@@ -60,3 +60,4 @@ jobs:
         with:
           # Kerrotaan, että palvelin pitää käynnistää.
           start: npm start
+# Tämä on tuotettu tekoälyn avustamana, kuitenkin on opittu miten tämä työkalu toimii.
