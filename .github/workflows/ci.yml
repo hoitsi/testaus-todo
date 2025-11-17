@@ -28,7 +28,7 @@ jobs:
 
       # 3. Asennetaan riippuvuudet. 'npm ci' on nopeampi ja luotettavampi CI-ympäristössä kuin 'npm install'.
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       # 4. Ajetaan yksikkötestit.
       - name: Run unit tests
@@ -47,7 +47,7 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       # 5. Ajetaan Cypress-testit.
       # Käytetään virallista Cypress GitHub Actionia, joka hoitaa kaiken automaattisesti:
