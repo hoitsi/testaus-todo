@@ -287,3 +287,6 @@
   // Initial paint
   render();
 })();
+
+// Tehtävä 10 - lopputyö
+//Uusi dom viittaus muuttujassa filterContainer. Viittaa html tiedostoon lisättyyn div elementtiin.
