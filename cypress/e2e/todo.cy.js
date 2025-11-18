@@ -164,6 +164,60 @@ describe('Todo-sovelluksen E2E-testit', () => {
       ]);
     });
   });
+
+  // Tehtävä 10, sovellusmuutosten E2E testit.
+  it('Suodattaa tehtäviä prioriteetin mukaan ja poistaa suodatuksen', () => {
+    // Luodaan testidataa,testidata--> 2 high 1 medium.
+    // Luodaan kolme tehtävää eri prioriteeteilla, jotta voimme testata suodatusta.
+    // 1. High
+    cy.get('#topic').type('Tärkeä tehtävä');
+    cy.get('#priority').select('high');
+    cy.get('#save-btn').click();
+    // 2. Medium
+    cy.get('#topic').type('Normaali tehtävä');
+    cy.get('#priority').select('medium');
+    cy.get('#save-btn').click();
+    // 3. Toinen High
+    cy.get('#topic').type('Toinen tärkeä');
+    cy.get('#priority').select('high');
+    cy.get('#save-btn').click();
+
+    // Varmistetaan, että aluksi kaikki 3 tehtävää näkyvät
+    cy.get('#task-list li').should('have.length', 3);
+
+    // Testataan high-suodatus.
+    // Klikataan "High"-nappia
+    cy.get('button[data-filter="high"]').click();
+    // Varmistetaan, että vain 2 tehtävää näkyy
+    cy.get('#task-list li').should('have.length', 2);
+    // Varmistetaan, että molemmat näkyvät tehtävät ovat "High" prioriteetilla
+    cy.get('#task-list li').each(($li) => {
+      cy.wrap($li).should('contain.text', 'High');
+    });
+
+    // Testataan medium-suodatus.
+    // Klikataan "Medium"-nappia
+    cy.get('button[data-filter="medium"]').click();
+    // Varmistetaan, että vain 1 tehtävä näkyy
+    cy.get('#task-list li').should('have.length', 1);
+    cy.get('#task-list li').first().should('contain.text', 'Normaali tehtävä');
+
+    // Testataan low-suodatus, pitäisi näyttää tyhjää.
+    // Klikataan "Low"-nappia
+    cy.get('button[data-filter="low"]').click();
+    // Varmistetaan, että yhtään tehtävää ei näy
+    cy.get('#task-list li').should('not.exist');
+    // Varmistetaan, että oikea "tyhjä tila" -viesti tulee näkyviin
+    cy.get('#empty-state')
+      .should('be.visible')
+      .and('contain.text', 'No tasks match the filter "low"');
+
+    // Testataan suodatuksen poisto. Eli klikataan ALL painiketta.
+    // Klikataan "All"-nappia
+    cy.get('button[data-filter="all"]').click();
+    // Varmistetaan, että kaikki 3 tehtävää ovat taas näkyvissä
+    cy.get('#task-list li').should('have.length', 3);
+  });
 });
 
 // Mitä opin? devausympäristössä piti määrittää localhost osoite cypresin config fileen. Ensimmäinen ongelma mikä piti selvittää.
@@ -172,3 +226,4 @@ describe('Todo-sovelluksen E2E-testit', () => {
 // Uutena metodina myös html elementin muuttaminen tekstiksi cypresille.
 // Yksinkertaisuuksiksaan get-metodi (css valitsin) on hyvinkin helppo ymmärtää.
 // Buttonien haussa tekoäly auttoi syntaksissa.
+// Tehtävä 10 lisättiin suodatukselle testit.
