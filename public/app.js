@@ -289,4 +289,10 @@
 })();
 
 // Tehtävä 10 - lopputyö
-//Uusi dom viittaus muuttujassa filterContainer. Viittaa html tiedostoon lisättyyn div elementtiin.
+// Uusi dom viittaus muuttujassa filterContainer. Viittaa html tiedostoon lisättyyn div elementtiin.
+// currentFilter muuttujaan tallennetaan tieto siitä mikä suodatin on aktiivinen.
+// Uusi tapahtumakäsittelijä addEventListener filterContainer elementille. kuuntelee klikkauksia suodatin alueen sisällä
+// render funktioon muutos, alussa logiikka suodataa tehtävät ennen niiden näyttämistä
+// tyhjäntilan viestiin muutos, jos tehtäviä on mutta suodatus piilottaa --> käyttäjä saa ilmoituksen. Parempi käytettävyyden kannalta.
+// currentFilter luo listan. se katsoo arvon ja käyttää array.prototype.filter metodilla ne tehtävät joiden priority vastaa currentFilter muutuja arvoa
+// Eli listan forEach silmukka <li> elementin luonnille ei näytä alkuperäistä task listaa vaan suodatetun filteredTasks listan
