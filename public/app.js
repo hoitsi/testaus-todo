@@ -59,35 +59,53 @@
   const inputStatus = /** @type {HTMLSelectElement} */ (
     document.getElementById('status')
   );
-  const inputDescription = /** @type {HTMLTextAreaElement} */ (
-    document.getElementById('description')
-  );
+  const inputDescription = document.getElementById('description');
+  // LISÄÄ NÄMÄ KAKSI RIVIÄ
   const saveBtn = /** @type {HTMLButtonElement} */ (
     document.getElementById('save-btn')
   );
   const resetBtn = /** @type {HTMLButtonElement} */ (
     document.getElementById('reset-btn')
   );
-  const list = /** @type {HTMLUListElement} */ (
+  const list = /** @type {HTMLElement} */ (
     document.getElementById('task-list')
   );
   const emptyState = /** @type {HTMLElement} */ (
     document.getElementById('empty-state')
   );
+  // LISÄÄ TÄMÄ VIITE SUODATIN-NAPPEIHIN
+  const filterContainer = /** @type {HTMLElement} */ (
+    document.getElementById('filter-container')
+  );
 
   // State
   let tasks = loadTasks();
+  // LISÄÄ TÄMÄ UUSI TILAMUUTTUJA
+  let currentFilter = 'all'; // 'all', 'high', 'medium', 'low'
 
   // Render
   function render() {
+    // LISÄÄ TÄMÄ SUODATUSLOGIIKKA RENDER-FUNKTION ALKUUN
+    const filteredTasks =
+      currentFilter === 'all'
+        ? tasks
+        : tasks.filter((t) => t.priority === currentFilter);
+
     list.innerHTML = '';
-    if (!tasks.length) {
+    if (!filteredTasks.length) {
       emptyState.style.display = 'block';
+      // Jos tehtäviä on, mutta suodatin piilottaa ne, näytä eri viesti
+      if (tasks.length > 0 && currentFilter !== 'all') {
+        emptyState.textContent = `No tasks match the filter "${currentFilter}".`;
+      } else {
+        emptyState.textContent = 'No tasks yet. Add your first task above.';
+      }
       return;
     }
     emptyState.style.display = 'none';
 
-    tasks
+    // MUUTA `tasks` -> `filteredTasks` TÄSSÄ
+    filteredTasks
       .sort((a, b) => {
         // Not-done first, then by priority (high->low), then newest first
         if (a.completed !== b.completed) return a.completed ? 1 : -1;
@@ -244,6 +262,24 @@
       if (!confirmDelete) return;
       tasks.splice(idx, 1);
       saveTasks(tasks);
+      render();
+    }
+  });
+
+  // LISÄÄ TÄMÄ KOKO LOHKO SUODATTIMEN TAPAHTUMANKÄSITTELYLLE
+  filterContainer.addEventListener('click', (e) => {
+    const target = /** @type {HTMLElement} */ (e.target);
+    // Varmistetaan, että klikkaus kohdistui nappiin, jolla on data-filter-attribuutti
+    if (target.tagName === 'BUTTON' && target.dataset.filter) {
+      currentFilter = target.dataset.filter;
+
+      // Päivitetään aktiivinen nappi visuaalisesti
+      filterContainer.querySelectorAll('button').forEach((btn) => {
+        btn.classList.remove('active');
+      });
+      target.classList.add('active');
+
+      // Päivitetään näkymä
       render();
     }
   });
