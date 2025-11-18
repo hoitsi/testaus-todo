@@ -296,3 +296,7 @@
 // tyhjäntilan viestiin muutos, jos tehtäviä on mutta suodatus piilottaa --> käyttäjä saa ilmoituksen. Parempi käytettävyyden kannalta.
 // currentFilter luo listan. se katsoo arvon ja käyttää array.prototype.filter metodilla ne tehtävät joiden priority vastaa currentFilter muutuja arvoa
 // Eli listan forEach silmukka <li> elementin luonnille ei näytä alkuperäistä task listaa vaan suodatetun filteredTasks listan
+// Periaatteessa olisi voinut toteuttaa piilottamalla tai lisäämällä/poistamalla css luokkia. Oppimisen kannalta parempi että käytetään myös yhdistettyä logiikkaa, käyttäen javascriptiä.
+// Oikein modernina ratkaisuna olisi voinut käyttää svelteä tai angularia tekemällä task-komponentin.
+// Tällöin painikkeella muokattaisiin tilamuuttujan arvoa. currentFilter olisi tilamuuttuja.
+// Ongelmana se että koko projekti pitäisi muuttaa.....
