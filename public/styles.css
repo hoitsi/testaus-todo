@@ -119,6 +119,7 @@ button:disabled {
   flex-wrap: wrap; /* Lisätty mobiililaitteita varten */
 }
 /* Tehtävä 10 - tyylilisäykset suodatusnapeille */
+/* css sääntöjä .filters nappuloille. Laitetaan flexilla nätisti viereikkäin. .active tarkoitus indikoida käyttäjälle että on valittuna. */
 .filters {
   display: flex;
   gap: 0.5rem;
