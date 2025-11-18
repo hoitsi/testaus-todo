@@ -1,78 +1,100 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Basic CRUD ToDo web app for Testing in web applications course
+    </title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Basic CRUD ToDo web app for Testing in web applications course</title>
-  <link rel="stylesheet" href="./styles.css" />
-</head>
+  <body>
+    <header class="container">
+      <h1>Basic CRUD ToDo web app for Testing in web applications course</h1>
+      <p class="subtitle">Vanilla JS + localStorage. CRUD + complete.</p>
+    </header>
 
-<body>
-  <header class="container">
-    <h1>Basic CRUD ToDo web app for Testing in web applications course</h1>
-    <p class="subtitle">Vanilla JS + localStorage. CRUD + complete.</p>
-  </header>
-
-  <main class="container">
-    <section class="card">
-      <h2 id="form-title">Create Task</h2>
-      <form id="task-form" autocomplete="off">
-        <input type="hidden" id="task-id" />
-        <div class="grid">
+    <main class="container">
+      <section class="card">
+        <h2 id="form-title">Create Task</h2>
+        <form id="task-form" autocomplete="off">
+          <input type="hidden" id="task-id" />
+          <div class="grid">
+            <label class="field">
+              <span>Topic</span>
+              <input
+                id="topic"
+                type="text"
+                required
+                maxlength="120"
+                placeholder="e.g. Write test plan"
+              />
+            </label>
+            <label class="field">
+              <span>Priority</span>
+              <select id="priority" required>
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Status</span>
+              <select id="status" required>
+                <option value="todo" selected>To do</option>
+                <option value="in-progress">In progress</option>
+                <option value="blocked">Blocked</option>
+                <option value="done">Done</option>
+              </select>
+            </label>
+          </div>
           <label class="field">
-            <span>Topic</span>
-            <input id="topic" type="text" required maxlength="120" placeholder="e.g. Write test plan" />
+            <span>Description</span>
+            <textarea
+              id="description"
+              rows="3"
+              placeholder="Short details…"
+            ></textarea>
           </label>
-          <label class="field">
-            <span>Priority</span>
-            <select id="priority" required>
-              <option value="low">Low</option>
-              <option value="medium" selected>Medium</option>
-              <option value="high">High</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Status</span>
-            <select id="status" required>
-              <option value="todo" selected>To do</option>
-              <option value="in-progress">In progress</option>
-              <option value="blocked">Blocked</option>
-              <option value="done">Done</option>
-            </select>
-          </label>
+          <div class="actions">
+            <button type="submit" id="save-btn">Save Task</button>
+            <button type="button" id="reset-btn" class="secondary">
+              Reset
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="list-header">
+          <h2>Tasks</h2>
+          <!-- Tehtävä 10, suodatusnapit html tiedostoon. -->
+          <div class="filters" id="filter-container">
+            <button data-filter="all" class="active">All</button>
+            <button data-filter="high">High</button>
+            <button data-filter="medium">Medium</button>
+            <button data-filter="low">Low</button>
+          </div>
+          <!-- Loppu -->
+          <div class="legend">
+            <span class="pill low">Low</span>
+            <span class="pill medium">Med</span>
+            <span class="pill high">High</span>
+          </div>
         </div>
-        <label class="field">
-          <span>Description</span>
-          <textarea id="description" rows="3" placeholder="Short details…"></textarea>
-        </label>
-        <div class="actions">
-          <button type="submit" id="save-btn">Save Task</button>
-          <button type="button" id="reset-btn" class="secondary">Reset</button>
-        </div>
-      </form>
-    </section>
+        <ul id="task-list" class="task-list"></ul>
+        <p id="empty-state" class="empty">
+          No tasks yet. Add your first task above.
+        </p>
+      </section>
+    </main>
 
-    <section class="card">
-      <div class="list-header">
-        <h2>Tasks</h2>
-        <div class="legend">
-          <span class="pill low">Low</span>
-          <span class="pill medium">Med</span>
-          <span class="pill high">High</span>
-        </div>
-      </div>
-      <ul id="task-list" class="task-list"></ul>
-      <p id="empty-state" class="empty">No tasks yet. Add your first task above.</p>
-    </section>
-  </main>
+    <footer class="container footnote">
+      <span>LocalStorage key: <code>todo_tasks_v1</code></span>
+      <a href="/health" target="_blank" rel="noreferrer">health</a>
+    </footer>
 
-  <footer class="container footnote">
-    <span>LocalStorage key: <code>todo_tasks_v1</code></span>
-    <a href="/health" target="_blank" rel="noreferrer">health</a>
-  </footer>
-
-  <script type="module" src="./app.js"></script>
-</body>
-
+    <script type="module" src="./app.js"></script>
+  </body>
 </html>
