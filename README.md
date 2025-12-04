@@ -51,3 +51,7 @@ A minimal full-stack JavaScript Todo application intended for learning unit test
 
 - Unit tests (Vitest): pure functions and DOM interactions in `public/app.js` can be factored further if needed.
 - E2E tests (Cypress): target user flows—create, update, complete/undo, delete; use `/health` to check server readiness.
+
+### Updates on my version (2.0)
+-Added priority filter.
+-Functionality and end-to-end tests using Github Actions.
