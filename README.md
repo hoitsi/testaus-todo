@@ -56,3 +56,5 @@ A minimal full-stack JavaScript Todo application intended for learning unit test
 - Added priority filter.
 - Functionality and end-to-end tests using Github Actions.
 - AI-assisted work.
+- See comments in code files to see changes and my thoughts about this work.
+- Functional tests are in tests-folder and E2E are found in cypress-folder. 
